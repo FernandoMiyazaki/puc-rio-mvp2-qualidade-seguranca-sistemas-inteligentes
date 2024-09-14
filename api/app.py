@@ -77,18 +77,18 @@ def add_patient(form: PatientSchema):
     model_path = './MachineLearning/pipelines/rf_diabetes_pipeline.pkl'
     pipeline = Pipeline.load_pipeline(model_path)
     # Make prediction
-    outcome = int(Model.predict(pipeline, X_input)[0])
+    diagnosis = int(Model.predict(pipeline, X_input)[0])
     
     patient = Patient(
         name=name,
-        concave_points_worst = concave_points_worst
-        perimeter_worst = perimeter_worst
-        concave_points_mean = concave_points_mean
-        radius_worst = radius_worst
-        perimeter_mean = perimeter_mean
-        area_worst = area_worst
-        radius_mean = radius_mean
-        area_mean = area_mean
+        concave_points_worst=concave_points_worst,
+        perimeter_worst=perimeter_worst,
+        concave_points_mean=concave_points_mean,
+        radius_worst=radius_worst,
+        perimeter_mean=perimeter_mean,
+        area_worst=area_worst,
+        radius_mean=radius_mean,
+        area_mean=area_mean,
         diagnosis=diagnosis
     )
     logger.debug(f"Adding patient with name: '{patient.name}'")
