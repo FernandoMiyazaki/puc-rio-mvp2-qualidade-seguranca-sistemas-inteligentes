@@ -62,14 +62,14 @@ def add_patient(form: PatientSchema):
     """
     # Extract data from the form
     name = form.name
-    preg = form.preg
-    plas = form.plas
-    pres = form.pres
-    skin = form.skin
-    test = form.test
-    mass = form.mass
-    pedi = form.pedi
-    age = form.age
+    concave_points_worst = form.concave_points_worst
+    perimeter_worst = form.perimeter_worst
+    concave_points_mean = form.concave_points_mean
+    radius_worst = form.radius_worst
+    perimeter_mean = form.perimeter_mean
+    area_worst = form.area_worst
+    radius_mean = form.radius_mean
+    area_mean = form.area_mean
         
     # Prepare data for the model
     X_input = PreProcessor.prepare_form(form)
@@ -81,15 +81,15 @@ def add_patient(form: PatientSchema):
     
     patient = Patient(
         name=name,
-        preg=preg,
-        plas=plas,
-        pres=pres,
-        skin=skin,
-        test=test,
-        mass=mass,
-        pedi=pedi,
-        age=age,
-        outcome=outcome
+        concave_points_worst = concave_points_worst
+        perimeter_worst = perimeter_worst
+        concave_points_mean = concave_points_mean
+        radius_worst = radius_worst
+        perimeter_mean = perimeter_mean
+        area_worst = area_worst
+        radius_mean = radius_mean
+        area_mean = area_mean
+        diagnosis=diagnosis
     )
     logger.debug(f"Adding patient with name: '{patient.name}'")
     
