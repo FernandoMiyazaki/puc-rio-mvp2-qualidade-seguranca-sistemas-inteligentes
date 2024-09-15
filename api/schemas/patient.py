@@ -60,7 +60,7 @@ class PatientViewSchema(BaseModel):
     area_worst: float = 2019.0
     radius_mean: float = 17.99
     area_mean: float = 1001.0
-    diagnosis: Optional[int] = None  # Allow outcome to be None
+    diagnosis: int = None
 
 
 class PatientSearchSchema(BaseModel):
@@ -116,7 +116,7 @@ def present_patient(patient: Patient) -> dict:
         "area_worst": patient.area_worst,
         "radius_mean": patient.radius_mean,
         "area_mean": patient.area_mean,
-        "diagnosis": patient.diagnosis_outcome
+        "diagnosis": patient.diagnosis
     }
 
 
@@ -143,7 +143,7 @@ def present_patients(patients: List[Patient]) -> dict:
             "area_worst": patient.area_worst,
             "radius_mean": patient.radius_mean,
             "area_mean": patient.area_mean,
-            "diagnosis": patient.diagnosis_outcome
+            "diagnosis": patient.diagnosis
         })
 
     return {"patients": result}

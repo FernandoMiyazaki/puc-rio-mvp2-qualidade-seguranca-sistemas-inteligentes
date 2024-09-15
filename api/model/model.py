@@ -1,36 +1,45 @@
 import numpy as np
 import pickle
+import joblib
 from model.preprocessor import PreProcessor
 
 class Model:
-    def __init__(self, model_path: str):
-        """
-        Initializes the Model class by loading the model from the specified path.
-        """
-        self.model = self.load_model(model_path)
     
     @staticmethod
     def load_model(path: str):
         """
-        Loads the model depending on the file extension. If the file ends with 
-        '.pkl', loads it using pickle. Raises an exception for unsupported formats.
+        Loads the model based on the file extension. Supports .pkl and .joblib formats.
+
+        Args:
+            path (str): Path to the model file.
+
+        Returns:
+            The loaded model.
+
+        Raises:
+            ValueError: If the file format is not supported.
         """
         if path.endswith('.pkl'):
             with open(path, 'rb') as file:
                 model = pickle.load(file)
+        elif path.endswith('.joblib'):
+            model = joblib.load(path)
         else:
-            raise Exception('Unsupported file format')
-        return model
-
-    def perform_prediction(self, X_input: np.ndarray):
-        """
-        Performs a prediction for the input data based on the loaded model.
+            raise ValueError('Unsupported file format. Supported formats: .pkl, .joblib')
         
-        Args:
-            X_input (np.ndarray): Input data for prediction.
-            
-        Returns:
-            The model's prediction.
+        return model
+    
+    @staticmethod
+    def perform_prediction(model, X_input: np.ndarray):
         """
-        diagnosis = self.model.predict(X_input)
+        Performs a prediction based on the trained model and input data.
+
+        Args:
+            model: Trained model used for prediction.
+            X_input (np.ndarray): Input data for prediction.
+
+        Returns:
+            Diagnosis result from the model's prediction.
+        """
+        diagnosis = model.predict(X_input)
         return diagnosis

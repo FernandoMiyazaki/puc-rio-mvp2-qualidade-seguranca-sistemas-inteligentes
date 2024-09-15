@@ -10,17 +10,17 @@ class Patient(Base):
     __tablename__ = 'patients'
 
     id = Column(Integer, primary_key=True)
-    name = Column(String(50))
-    concave_points_worst = Column(Float)
-    perimeter_worst = Column(Float)
-    concave_points_mean = Column(Float)
-    radius_worst = Column(Float)
-    perimeter_mean = Column(Float)
-    area_worst = Column(Float)
-    radius_mean = Column(Float)
-    area_mean = Column(Float)
-    diagnosis = Column(Integer, nullable=True)
-    insertion_date = Column(DateTime, default=datetime.now)
+    name = Column("name", String(50))
+    concave_points_worst = Column("concave_points_worst", Float)
+    perimeter_worst = Column("perimeter_worst", Float)
+    concave_points_mean = Column("concave_points_mean", Float)
+    radius_worst = Column("radius_worst", Float)
+    perimeter_mean = Column("perimeter_mean", Float)
+    area_worst = Column("area_worst", Float)
+    radius_mean = Column("radius_mean", Float)
+    area_mean = Column("area_mean", Float)
+    diagnosis = Column("diagnosis", Integer, nullable=True)
+    insertion_date = Column(DateTime, default=datetime.now())
 
     def __init__(
         self, 
@@ -33,7 +33,7 @@ class Patient(Base):
         area_worst: float,
         radius_mean: float,
         area_mean: float,
-        diagnosis: Union[int, None] = None,
+        diagnosis: int,
         insertion_date: Union[DateTime, None] = None
     ):
         """
@@ -64,6 +64,5 @@ class Patient(Base):
         self.diagnosis = diagnosis
 
         # Set the current date/time if no insertion date is provided.
-        if insertion_date is None:
-            insertion_date = datetime.now()
-        self.insertion_date = insertion_date
+        if insertion_date:
+            self.insertion_date = insertion_date

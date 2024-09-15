@@ -14,7 +14,7 @@ from model.loader import Loader
 
 # Define the database path
 DB_PATH = "database/"
-DB_FILE = "pacientes.sqlite3"
+DB_FILE = "patients.sqlite3"
 DB_URL = f'sqlite:///{DB_PATH}{DB_FILE}'
 
 # Ensure the database directory exists

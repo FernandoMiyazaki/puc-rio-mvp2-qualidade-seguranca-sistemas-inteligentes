@@ -74,10 +74,10 @@ def add_patient(form: PatientSchema):
     # Prepare data for the model
     X_input = PreProcessor.prepare_form(form)
     # Load the model
-    model_path = './MachineLearning/pipelines/rf_diabetes_pipeline.pkl'
+    model_path = './machine_learning/pipelines/svc_breast_cancer_pipeline.pkl'
     pipeline = Pipeline.load_pipeline(model_path)
     # Make prediction
-    diagnosis = int(Model.predict(pipeline, X_input)[0])
+    diagnosis = int(Model.perform_prediction(pipeline, X_input)[0])
     
     patient = Patient(
         name=name,
