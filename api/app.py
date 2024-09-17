@@ -1,5 +1,5 @@
 from flask_openapi3 import OpenAPI, Info, Tag
-from flask import redirect
+from flask import redirect, request
 from urllib.parse import unquote
 from sqlalchemy.exc import IntegrityError
 
@@ -49,17 +49,90 @@ def get_patients():
 
 
 # Route for adding a patient
+# @app.post('/patient', tags=[patient_tag],
+#           responses={"200": PatientViewSchema, "400": ErrorSchema, "409": ErrorSchema})
+# def add_patient(form: PatientSchema):
+#     """Adds a new patient to the database and returns a representation of the patient and associated diagnosis.
+
+#     Args:
+#         form (PatientSchema): Patient data
+
+#     Returns:
+#         dict: Representation of the patient and associated diagnosis
+#     """
+#     # Extract data from the form
+#     name = form.name
+#     concave_points_worst = form.concave_points_worst
+#     perimeter_worst = form.perimeter_worst
+#     concave_points_mean = form.concave_points_mean
+#     radius_worst = form.radius_worst
+#     perimeter_mean = form.perimeter_mean
+#     area_worst = form.area_worst
+#     radius_mean = form.radius_mean
+#     area_mean = form.area_mean
+        
+#     # Prepare data for the model
+#     X_input = PreProcessor.prepare_form(form)
+#     # Load the model
+#     model_path = './machine_learning/pipelines/svc_breast_cancer_pipeline.pkl'
+#     pipeline = Pipeline.load_pipeline(model_path)
+#     # Make prediction
+#     diagnosis = int(Model.perform_prediction(pipeline, X_input)[0])
+    
+#     patient = Patient(
+#         name=name,
+#         concave_points_worst=concave_points_worst,
+#         perimeter_worst=perimeter_worst,
+#         concave_points_mean=concave_points_mean,
+#         radius_worst=radius_worst,
+#         perimeter_mean=perimeter_mean,
+#         area_worst=area_worst,
+#         radius_mean=radius_mean,
+#         area_mean=area_mean,
+#         diagnosis=diagnosis
+#     )
+#     logger.debug(f"Adding patient with name: '{patient.name}'")
+    
+#     try:
+#         # Create a database session
+#         session = Session()
+        
+#         # Check if the patient already exists
+#         if session.query(Patient).filter(Patient.name == form.name).first():
+#             error_msg = "Patient already exists in the database :/"
+#             logger.warning(f"Error adding patient '{patient.name}': {error_msg}")
+#             return {"message": error_msg}, 409
+        
+#         # Add patient
+#         session.add(patient)
+#         # Commit the transaction
+#         session.commit()
+#         logger.debug(f"Added patient with name: '{patient.name}'")
+#         return present_patient(patient), 200
+    
+#     except Exception as e:
+#         error_msg = "Unable to save the new item :/"
+#         logger.warning(f"Error adding patient '{patient.name}': {error_msg}")
+#         return {"message": error_msg}, 400
 @app.post('/patient', tags=[patient_tag],
           responses={"200": PatientViewSchema, "400": ErrorSchema, "409": ErrorSchema})
-def add_patient(form: PatientSchema):
+def add_patient():
     """Adds a new patient to the database and returns a representation of the patient and associated diagnosis.
-
-    Args:
-        form (PatientSchema): Patient data
 
     Returns:
         dict: Representation of the patient and associated diagnosis
     """
+    # Extract data from the JSON request
+    data = request.json
+    
+    # Parse data using PatientSchema
+    try:
+        form = PatientSchema(**data)
+    except Exception as e:
+        error_msg = f"Invalid input: {str(e)}"
+        logger.warning(f"Error adding patient: {error_msg}")
+        return {"message": error_msg}, 400
+
     # Extract data from the form
     name = form.name
     concave_points_worst = form.concave_points_worst
@@ -114,7 +187,6 @@ def add_patient(form: PatientSchema):
         error_msg = "Unable to save the new item :/"
         logger.warning(f"Error adding patient '{patient.name}': {error_msg}")
         return {"message": error_msg}, 400
-    
 
 # Route for searching a patient by name
 @app.get('/patient', tags=[patient_tag],
