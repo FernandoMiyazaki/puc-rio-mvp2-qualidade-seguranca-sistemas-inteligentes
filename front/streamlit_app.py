@@ -23,7 +23,7 @@ def add_patient(patient_data):
 
     # Check response status and content
     st.write("Response status code:", response.status_code)
-    st.write("Response content:", response.text)  # This prints the actual response text
+    st.write("Response content:", response.text)
 
     if response.status_code == 200:
         st.success("Patient added successfully!")
@@ -96,7 +96,7 @@ def main():
             "area_worst",
             "radius_mean",
             "area_mean",
-            "diagnosis"  # Assuming 'diagnosis' is part of the response
+            "diagnosis"
         ]
 
         # Reorder the columns of the DataFrame
