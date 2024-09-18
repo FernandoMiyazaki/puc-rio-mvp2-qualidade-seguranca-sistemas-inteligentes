@@ -1,28 +1,10 @@
-# puc-rio-mvp2-qualidade-seguranca-sistemas-inteligentes
-Repositório contendo o MVP da sprint "Qualidade de Software, Segurança e Sistemas Inteligentes"
+# Breast Cancer Diagnosis Prediction
 
-Datasets utilizados em problemas de classificação:
+This project is a Minimum Viable Product (MVP) and part of the "Qualidade de Software, Segurança e Sistemas Inteligentes" course, which is part of the Software Engineering Postgraduate Program at Pontifical Catholic University of Rio de Janeiro (PUC-Rio). It comprises:
 
-Esse não está balanceado
-https://archive.ics.uci.edu/dataset/573/south+german+credit+update
+- An API developed in Python using Flask, along with the creation of a database containing the **patients** table.
+- The development of classification Machine Learning models to predict breast cancer.
+- A frontend developed with Streamlit framework.
 
-Esse dataset está balanceado
-https://archive.ics.uci.edu/dataset/73/mushroom
-
-Possui poucas colunas
-https://archive.ics.uci.edu/dataset/186/wine+quality
-
-Variáveis contínuas
+The dataset used in this project is the "Breast Cancer Wisconsin (Diagnostic)"
 https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic
-
-
-
-
-
-Criação do virtual environment
-
-python -m venv venv
-.\venv\Scripts\activate
-pip install pandas
-
-
