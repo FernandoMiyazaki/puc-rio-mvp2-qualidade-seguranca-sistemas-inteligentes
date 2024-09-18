@@ -3,6 +3,7 @@ import pickle
 import joblib
 from model.preprocessor import PreProcessor
 
+
 class Model:
     
     @staticmethod

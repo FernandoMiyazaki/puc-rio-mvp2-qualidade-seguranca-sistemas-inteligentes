@@ -5,7 +5,7 @@ import pandas as pd
 # Backend API URLs
 API_BASE_URL = "http://127.0.0.1:5000"
 GET_PATIENTS_URL = f"{API_BASE_URL}/patients"
-ADD_PATIENT_URL = f"{API_BASE_URL}/patient"
+ADD_PATIENT_URL = f"{API_BASE_URL}/patient_streamlit"
 
 # Function to fetch all patients from the backend
 def fetch_patients():
@@ -32,21 +32,30 @@ def add_patient(patient_data):
 
 # Main Streamlit App
 def main():
-    st.title("Breast Cancer Diagnosis")
+    # Create two columns for the image and the title
+    col1, col2 = st.columns([1, 4])
+
+    # Add the image in the first column
+    with col1:
+        st.image("front/img/breast_cancer.jpg", width=120)
+
+    # Add the title in the second column
+    with col2:
+        st.title("Breast Cancer Diagnosis")
 
     # Input form to add a new patient
     with st.form(key='patient_form'):
         st.header("Add New Patient")
 
         name = st.text_input("Name")
-        concave_points_worst = st.number_input("Concave Points Worst", min_value=0.0)
-        perimeter_worst = st.number_input("Perimeter Worst", min_value=0.0)
-        concave_points_mean = st.number_input("Concave Points Mean", min_value=0.0)
-        radius_worst = st.number_input("Radius Worst", min_value=0.0)
-        perimeter_mean = st.number_input("Perimeter Mean", min_value=0.0)
-        area_worst = st.number_input("Area Worst", min_value=0.0)
-        radius_mean = st.number_input("Radius Mean", min_value=0.0)
-        area_mean = st.number_input("Area Mean", min_value=0.0)
+        concave_points_worst = st.number_input("Concave Points Worst", min_value=0.0, format="%.5f")
+        perimeter_worst = st.number_input("Perimeter Worst", min_value=0.0, format="%.2f")
+        concave_points_mean = st.number_input("Concave Points Mean", min_value=0.0, format="%.6f")
+        radius_worst = st.number_input("Radius Worst", min_value=0.0, format="%.3f")
+        perimeter_mean = st.number_input("Perimeter Mean", min_value=0.0, format="%.2f")
+        area_worst = st.number_input("Area Worst", min_value=0.0, format="%.1f")
+        radius_mean = st.number_input("Radius Mean", min_value=0.0, format="%.3f")
+        area_mean = st.number_input("Area Mean", min_value=0.0, format="%.1f")
 
         submit_button = st.form_submit_button("Submit")
 
@@ -75,6 +84,25 @@ def main():
 
     if patients:
         df = pd.DataFrame(patients)
+
+        # Define the desired column order
+        desired_order = [
+            "name",
+            "concave_points_worst",
+            "perimeter_worst",
+            "concave_points_mean",
+            "radius_worst",
+            "perimeter_mean",
+            "area_worst",
+            "radius_mean",
+            "area_mean",
+            "diagnosis"  # Assuming 'diagnosis' is part of the response
+        ]
+
+        # Reorder the columns of the DataFrame
+        df = df[desired_order]
+
+        # Display the DataFrame
         st.dataframe(df)
     else:
         st.write("No patients found")

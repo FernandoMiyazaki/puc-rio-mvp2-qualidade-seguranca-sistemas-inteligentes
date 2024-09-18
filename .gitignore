@@ -1,5 +1,3 @@
-# Python virtual environment
 venv/
 **/__pycache__/
-**/log
-api/log/
+**/log/

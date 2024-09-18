@@ -1,6 +1,6 @@
-import json # necessary?
+import json
 
-import numpy as np  # necessary?
+import numpy as np
 from pydantic import BaseModel
 from typing import List, Optional
 
