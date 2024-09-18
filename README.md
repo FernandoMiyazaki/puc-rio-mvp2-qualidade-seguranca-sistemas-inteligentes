@@ -7,4 +7,56 @@ This project is a Minimum Viable Product (MVP) and part of the "Qualidade de Sof
 - A frontend developed with Streamlit framework.
 
 The dataset used in this project is the "Breast Cancer Wisconsin (Diagnostic)"
+
 https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic
+
+---
+## Installation
+
+### 1. Clone the repository:
+
+```
+git clone https://github.com/FernandoMiyazaki/puc-rio-mvp1-back-end.git
+```
+
+### 2. Open the repository:
+
+```
+cd puc-rio-mvp1-back-end
+```
+
+### 3. Create and activate a virtual environment
+
+**Windows**
+
+```
+python -m venv venv
+```
+```
+.\venv\Scripts\activate
+```
+
+**Mac/Linux**
+
+```
+python3 -m venv venv
+```
+```
+source venv/bin/activate
+```
+
+### 4. Install the Python libraries listed in `requirements.txt`.
+
+```
+pip install -r requirements.txt
+```
+
+### 5. Run the API:
+
+```
+flask run --host 0.0.0.0 --port 5000
+```
+
+### 6. Access the application documentation:
+
+Open [http://127.0.0.1:5000] in your browser.
