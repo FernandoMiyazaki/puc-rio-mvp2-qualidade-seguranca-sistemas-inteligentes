@@ -16,13 +16,13 @@ https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic
 ### 1. Clone the repository:
 
 ```
-git clone https://github.com/FernandoMiyazaki/puc-rio-mvp1-back-end.git
+git clone https://github.com/FernandoMiyazaki/puc-rio-mvp2-qualidade-seguranca-sistemas-inteligentes.git
 ```
 
 ### 2. Open the repository:
 
 ```
-cd puc-rio-mvp1-back-end
+cd puc-rio-mvp2-qualidade-seguranca-sistemas-inteligentes
 ```
 
 ### 3. Create and activate a virtual environment
@@ -54,9 +54,23 @@ pip install -r requirements.txt
 ### 5. Run the API:
 
 ```
-flask run --host 0.0.0.0 --port 5000
+cd api
+```
+```
+start python app.py
 ```
 
 ### 6. Access the application documentation:
 
 Open [http://127.0.0.1:5000] in your browser.
+
+### 5. Run the Streamlit app (frontend):
+
+```
+cd ..
+```
+```
+streamlit run front/streamlit_app.py
+```
+
+The Streamlit UI runs on: [http://localhost:8501/].
