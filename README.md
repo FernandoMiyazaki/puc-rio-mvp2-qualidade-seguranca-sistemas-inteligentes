@@ -73,4 +73,4 @@ cd ..
 streamlit run front/streamlit_app.py
 ```
 
-The Streamlit UI runs on: [http://localhost:8501/].
+The Streamlit UI runs on: [http://localhost:8501/]
