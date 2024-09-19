@@ -1,5 +1,6 @@
 import pytest
 import numpy as np
+from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import (
     accuracy_score, 
     precision_score, 
@@ -19,7 +20,8 @@ COLUMNS = [
     'perimeter_mean', 
     'area_worst', 
     'radius_mean', 
-    'area_mean'
+    'area_mean',
+    'diagnosis'
 ]
 PATH_MODEL = "./machine_learning/models/svc_breast_cancer_classification.pkl"
 
@@ -36,10 +38,14 @@ def load_data_and_model():
     X_test = array[:, :-1]
     y_test = array[:, -1]
     
+    # Rescale features
+    scaler = StandardScaler().fit(X_test)
+    rescaled_X_test = scaler.transform(X_test)
+    
     # Load model
     loaded_model = model.load_model(PATH_MODEL)
     
-    return loaded_model, X_test, y_test
+    return loaded_model, rescaled_X_test, y_test
 
 def test_model_predictions_binary(load_data_and_model):
     """Test if model predictions are binary (0 or 1)."""
@@ -49,14 +55,14 @@ def test_model_predictions_binary(load_data_and_model):
     assert set(y_pred).issubset({0, 1}), "Predictions should be 0 or 1"
 
 def test_predictions_no_nan(load_data_and_model):
-    """Test if predictions contain no NaN values."""
+    """Test if predictions contain no NaN values.""" 
     loaded_model, X_test, _ = load_data_and_model
     y_pred = Model.perform_prediction(loaded_model, X_test)
 
     assert not np.isnan(y_pred).any(), "Predictions contain NaN values"
 
 def test_confusion_matrix_non_negative(load_data_and_model):
-    """Test if confusion matrix values are non-negative."""
+    """Test if confusion matrix values are non-negative.""" 
     loaded_model, X_test, y_test = load_data_and_model
     y_pred = Model.perform_prediction(loaded_model, X_test)
     cm = confusion_matrix(y_test, y_pred)
@@ -64,14 +70,14 @@ def test_confusion_matrix_non_negative(load_data_and_model):
     assert (cm >= 0).all(), "Confusion matrix contains negative values"
 
 def test_predictions_length_matches(load_data_and_model):
-    """Test if the number of predictions matches the test data size."""
+    """Test if the number of predictions matches the test data size.""" 
     loaded_model, X_test, y_test = load_data_and_model
     y_pred = Model.perform_prediction(loaded_model, X_test)
 
     assert len(y_pred) == len(y_test), "Number of predictions does not match number of test samples"
 
 def test_model_metrics(load_data_and_model):
-    """Test model performance metrics."""
+    """Test model performance metrics.""" 
     loaded_model, X_test, y_test = load_data_and_model
     y_pred = Model.perform_prediction(loaded_model, X_test)
     
@@ -87,12 +93,12 @@ def test_model_metrics(load_data_and_model):
     precision = precision_score(y_test, y_pred)
     recall = recall_score(y_test, y_pred)
 
-    assert accuracy >= 0.8, f"Accuracy is too low: {accuracy:.2f}"
+    assert accuracy >= 0.95, f"Accuracy is too low: {accuracy:.2f}"
     assert precision >= 0, "Precision should be non-negative"
     assert recall >= 0, "Recall should be non-negative"
 
     if y_pred_proba is not None:
         auc = roc_auc_score(y_test, y_pred_proba)
-        assert auc >= 0.7, f"AUC score is too low: {auc:.2f}"
+        assert auc >= 0.9, f"AUC score is too low: {auc:.2f}"
     else:
         pytest.skip("Model does not support probability predictions, skipping AUC test.")
