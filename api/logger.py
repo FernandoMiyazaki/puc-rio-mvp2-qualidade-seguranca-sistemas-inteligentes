@@ -1,6 +1,6 @@
-from logging.config import dictConfig
 import logging
 import os
+from logging.config import dictConfig
 
 # Define the path for log files
 log_path = "log/"

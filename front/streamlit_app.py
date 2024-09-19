@@ -1,6 +1,7 @@
-import streamlit as st
 import requests
+
 import pandas as pd
+import streamlit as st
 
 # Backend API URLs
 API_BASE_URL = "http://127.0.0.1:5000"

@@ -1,15 +1,15 @@
 import os
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy_utils import database_exists, create_database
+from sqlalchemy_utils import create_database, database_exists
 
 from model.base import Base
-from model.patient import Patient
+from model.loader import Loader
 from model.model import Model
+from model.patient import Patient
 from model.pipeline import Pipeline
 from model.preprocessor import PreProcessor
-from model.evaluator import Evaluator
-from model.loader import Loader
 
 # Define the database path
 DB_PATH = "database/"

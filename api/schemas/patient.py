@@ -1,8 +1,6 @@
-import json
+from typing import List
 
-import numpy as np
 from pydantic import BaseModel
-from typing import List, Optional
 
 from model.patient import Patient
 

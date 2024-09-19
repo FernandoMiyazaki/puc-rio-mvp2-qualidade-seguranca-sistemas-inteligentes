@@ -1,7 +1,8 @@
+from urllib.parse import unquote
+
 from flask import redirect, request
 from flask_cors import CORS
 from flask_openapi3 import Info, OpenAPI, Tag
-from urllib.parse import unquote
 
 from logger import logger
 from model import *

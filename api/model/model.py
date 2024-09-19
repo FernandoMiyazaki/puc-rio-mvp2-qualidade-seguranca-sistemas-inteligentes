@@ -1,7 +1,6 @@
+import joblib
 import numpy as np
 import pickle
-import joblib
-from model.preprocessor import PreProcessor
 
 
 class Model:

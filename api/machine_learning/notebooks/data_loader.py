@@ -1,5 +1,6 @@
 import pandas as pd
 
+
 class DataLoader:
     """
     A class for loading datasets from a given URL.
